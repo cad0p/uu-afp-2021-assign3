@@ -50,12 +50,12 @@ jobs:
     - name: 📸 Build Snapshot
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        cd assign2-cad0p
+        cd assign3-cad0p
         stack --no-terminal test --bench --only-snapshot
 
     - name: 🔨 Build & Test
       run: |
-        cd assign2-cad0p
+        cd assign3-cad0p
         stack --no-terminal test --bench --haddock --no-haddock-deps --no-run-benchmarks
         mkdir -p dist/haddock && mv $(stack path --local-install-root)/doc/* dist/haddock
         sed -i 's@href="[^"]*/doc/\([^"]*.html\)"@href="\1"@g' dist/haddock/index.html
