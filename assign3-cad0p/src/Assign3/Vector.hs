@@ -1,6 +1,6 @@
-{-# LANGUAGE DataKinds      #-}
-{-# LANGUAGE GADTs          #-}
-{-# LANGUAGE KindSignatures #-}
+{-# LANGUAGE DataKinds    #-}
+{-# LANGUAGE GADTs        #-}
+{-# LANGUAGE TypeFamilies #-}
 {-|
 Module      : Assign3.Vector
 Description : Term-level fixpoints
@@ -16,7 +16,7 @@ data Nat
   = Zero
   | Succ Nat
 
-data Vec a (n :: Nat) where
+data Vec a n where
   Nil :: Vec a 'Zero
   Cons :: a -> Vec a n -> Vec a ('Succ n)
 
@@ -34,14 +34,17 @@ instance Show a => Show (Vec a n) where
 
 
 class Vector v where
-  toList :: v a n -> [a]
-  fromList :: [a] -> v a n
+  data V v :: * -> Nat -> *
+  toList :: V v a n -> [a]
+  fromList :: [a] -> V v a n
 
 {-| 'Vec' is a 'Vector' with a fixed number of elements
 -}
--- instance Vector Vec where
---   toList :: Vec a n -> [a]
---   toList Nil         = []
---   toList (Cons x xs) = x : toList xs
+instance Vector (Vec a n) where
+  data V (Vec a n) a n where
+    VNil :: V (Vec a 'Zero) a 'Zero
+    VCons :: a -> V (Vec a n) a n -> V (Vec a ('Succ n)) a ('Succ n)
+  toList VNil         = []
+  toList (VCons x xs) = x : toList xs
 
 
