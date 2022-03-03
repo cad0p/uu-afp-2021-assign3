@@ -1,5 +1,7 @@
 module Main where
 
+import           App.Assign3.Nested (runNested)
 
 main :: IO ()
-main = return ()
+main = do
+  runNested

@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Assign3.Fix
+      Assign3.Nested
   other-modules:
       Paths_assign3_cad0p
   hs-source-dirs:
@@ -38,6 +39,7 @@ library
 executable assign3-cad0p-exe
   main-is: Main.hs
   other-modules:
+      App.Assign3.Nested
       Paths_assign3_cad0p
   hs-source-dirs:
       app
