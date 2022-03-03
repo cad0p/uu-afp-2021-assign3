@@ -1,4 +1,4 @@
-# assign3-cad0p
+# assign3-cad0p [![Code Style](https://github.com/uu-afp/uu-afp-2021-assign3-cad0p/actions/workflows/style.yaml/badge.svg)](https://github.com/uu-afp/uu-afp-2021-assign3-cad0p/actions/workflows/style.yaml) [![Continuous Integration](https://github.com/uu-afp/uu-afp-2021-assign3-cad0p/actions/workflows/workflow.yaml/badge.svg)](https://github.com/uu-afp/uu-afp-2021-assign3-cad0p/actions/workflows/workflow.yaml)
 
 To setup:
 ```sh
