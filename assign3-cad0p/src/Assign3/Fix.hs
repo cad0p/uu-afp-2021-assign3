@@ -11,7 +11,7 @@ Maintainer  : p.c.cadoppi@students.uu.nl
 Stability   : experimental
 -}
 
-module Assign3.Fix (foldr, yFoldr) where
+module Assign3.Fix (foldr) where
 
 import           Prelude hiding (foldr)
 
