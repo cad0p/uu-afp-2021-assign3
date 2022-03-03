@@ -1,4 +1,6 @@
-module Assign3.Fix where
+module Assign3.Fix (foldr) where
+
+import           Prelude hiding (foldr)
 
 -- | A fixed-point combinator
 fix :: (a -> a) -> a

@@ -53,3 +53,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - assign3-cad0p
+    - tasty
+    - tasty-hunit
