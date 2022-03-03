@@ -27,6 +27,7 @@ library
   exposed-modules:
       Assign3.Fix
       Assign3.Nested
+      Assign3.Vector
   other-modules:
       Paths_assign3_cad0p
   hs-source-dirs:
