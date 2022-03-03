@@ -16,5 +16,9 @@ huFix = testGroup "Fix" [ huFoldr ]
 
 huFoldr :: TestTree
 huFoldr = testGroup "foldr"
-  [ ]
+  [ testCase "1" (
+      foldr (||) False [False, True, False]
+    @?=
+      True
+  )]
 
