@@ -11,7 +11,7 @@ Maintainer  : p.c.cadoppi@students.uu.nl
 Stability   : experimental
 -}
 
-module Assign3.Fix (foldr) where
+module Assign3.Fix (foldr, yFoldr) where
 
 import           Prelude hiding (foldr)
 
@@ -51,3 +51,16 @@ data F a = F { unF :: F a -> a }
 
 y :: (a -> a) -> a
 y f = (\x -> f (unF x x)) (F (\x -> f (unF x x)))
+
+{-|
+  The compiler doesn't like to export 'yFoldr', so cannot test in the tests
+  but it works the same way as 'foldr'
+
+  >>> foldr (||) False [False, True, False]
+  >>  True
+-}
+yFoldr :: (a -> b -> b) -> b -> [a] -> b
+yFoldr = y
+  (\foldr' f z l -> case l of
+    []     -> z
+    (x:xs) -> f x (foldr' f z xs))

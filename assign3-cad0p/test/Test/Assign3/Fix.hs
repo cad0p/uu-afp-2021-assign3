@@ -11,7 +11,9 @@ qcFix :: TestTree
 qcFix = testGroup "Fix" []
 
 huFix :: TestTree
-huFix = testGroup "Fix" [ huFoldr ]
+huFix = testGroup "Fix" [ huFoldr -- foldr
+                        -- , huFoldr yFoldr
+                        ]
 
 
 huFoldr :: TestTree
