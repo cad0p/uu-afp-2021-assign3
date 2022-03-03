@@ -1,3 +1,7 @@
+{-# OPTIONS_GHC -fmax-simplifier-iterations=1 #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use newtype instead of data" #-}
+
 {-|
 Module      : Assign3.Fix
 Description : Term-level fixpoints
@@ -26,3 +30,24 @@ foldr = fix
     []     -> z
     (x:xs) -> f x (foldr' f z xs))
 
+{-|
+  Error: Occurs check: cannot construct the infinite type: t0 ~ t0 -> t
+  Expected type: t0 -> t
+    Actual type: (t0 -> t) -> t
+-}
+-- y = \f -> (\x -> f (x x)) (\x -> f (x x))
+
+{-
+  What is happening here is that x is both a function and a parameter in this case.
+  The function `x` would have type a ~ a -> b
+  The parameter x` should have type b d
+-}
+
+
+{-| Recursive type -}
+data F a = F { unF :: F a -> a }
+
+
+
+y :: (a -> a) -> a
+y f = (\x -> f (unF x x)) (F (\x -> f (unF x x)))
