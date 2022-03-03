@@ -10,8 +10,16 @@ Stability   : experimental
 module Assign3.Nested (Square, Cons) where
 
 type Square      = Square' Nil  -- note that it is eta-reduced
-data Square' t a = Zero (t (t a)) | Succ (Square' (Cons t) a)
+data Square' t a
+  = Zero (t (t a))
+  | Succ (Square' (Cons t) a)
 
-data Nil    a = Nil
-data Cons t a = Cons a (t a)
+data Nil a = Nil
+data Cons t a
+  = Cons a (t a)
 
+{-|
+  from here: https://joelburget.com/data-newtype-instance-class/
+-}
+-- class Shape a where
+--   fromList2 :: [[a]]

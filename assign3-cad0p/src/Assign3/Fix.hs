@@ -45,7 +45,10 @@ foldr = fix
 
 
 {-| Recursive type -}
-data F a = F { unF :: F a -> a }
+data F a
+  = F
+      { unF :: F a -> a
+      }
 
 
 
