@@ -8,7 +8,7 @@ Maintainer  : p.c.cadoppi@students.uu.nl
 Stability   : experimental
 -}
 
-module Assign3.Teletype (Teletype (..), echo) where
+module Assign3.Teletype (Teletype (..), echo, runConsole) where
 
 import           Control.Monad             ((>=>))
 import           Control.Monad.State.Class (MonadState (..))

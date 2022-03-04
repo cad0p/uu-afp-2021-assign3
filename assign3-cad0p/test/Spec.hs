@@ -1,7 +1,8 @@
 import           Test.Tasty
 
-import           Test.Assign3.Fix    (huFix, qcFix)
-import           Test.Assign3.Nested (huNested, qcNested)
+import           Test.Assign3.Fix      (huFix, qcFix)
+import           Test.Assign3.Nested   (huNested, qcNested)
+import           Test.Assign3.Teletype (huTeletype, qcTeletype)
 
 
 
@@ -16,7 +17,8 @@ properties  =   testGroup "Properties"  [ qcProps ]
 
 qcProps     ::  TestTree
 qcProps     =   testGroup "QuickCheck"  [ qcFix
-                                        , qcNested ]
+                                        , qcNested
+                                        , qcTeletype ]
 
 
 
@@ -25,5 +27,6 @@ unitTests   =   testGroup "Unit tests"  [ hUnit ]
 
 hUnit       ::  TestTree
 hUnit       =   testGroup "HUnit"       [ huFix
-                                        , huNested ]
+                                        , huNested
+                                        , huTeletype ]
 
