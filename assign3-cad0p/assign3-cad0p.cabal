@@ -55,6 +55,7 @@ test-suite assign3-cad0p-test
   main-is: Spec.hs
   other-modules:
       Test.Assign3.Fix
+      Test.Assign3.Nested
       Paths_assign3_cad0p
   hs-source-dirs:
       test

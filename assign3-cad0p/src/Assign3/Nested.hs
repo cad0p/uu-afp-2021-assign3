@@ -11,7 +11,7 @@ Maintainer  : p.c.cadoppi@students.uu.nl
 Stability   : experimental
 -}
 
-module Assign3.Nested (Square, Cons) where
+module Assign3.Nested (Square, Cons, Square' (..), Nil, square1, square2, square3) where
 
 type Square      = Square' Nil  -- note that it is eta-reduced
 data Square' t a
@@ -102,3 +102,10 @@ eqSquare' eqT eqA _         _         = False
   eqT (eqT eqA) resembles the structure of Zero, and it's recursive
   so the type changes every time
 -}
+
+
+eqSquare :: (a -> a -> Bool) -> Square a -> Square a -> Bool
+eqSquare = eqSquare' eqNil
+
+instance Eq a => Eq (Square a) where
+  (==) = eqSquare (==)
