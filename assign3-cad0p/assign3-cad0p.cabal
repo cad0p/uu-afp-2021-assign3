@@ -36,6 +36,7 @@ library
   ghc-options: -Wall -fwarn-incomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
+    , mtl
   default-language: Haskell2010
 
 executable assign3-cad0p-exe

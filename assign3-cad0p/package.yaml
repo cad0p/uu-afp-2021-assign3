@@ -27,6 +27,8 @@ library:
   ghc-options:
   - -Wall
   - -fwarn-incomplete-uni-patterns
+  dependencies:
+  - mtl
 
 executables:
   assign3-cad0p-exe:
