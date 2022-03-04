@@ -41,7 +41,7 @@ library
 executable assign3-cad0p-exe
   main-is: Main.hs
   other-modules:
-      App.Assign3.Nested
+      App.Assign3.Teletype
       Paths_assign3_cad0p
   hs-source-dirs:
       app

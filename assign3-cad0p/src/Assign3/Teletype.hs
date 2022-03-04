@@ -7,7 +7,7 @@ Maintainer  : p.c.cadoppi@students.uu.nl
 Stability   : experimental
 -}
 
-module Assign3.Teletype (Teletype (..)) where
+module Assign3.Teletype (Teletype (..), echo) where
 
 import           Control.Monad ((>=>))
 import           Prelude       hiding (getChar, getLine, putChar)
@@ -34,8 +34,8 @@ instance Eq a => Eq (Teletype a) where
 {-|
   Echo continuously echoes characters
 -}
-echo :: Teletype a
-echo = Get (`Put` echo)
+-- echo :: Teletype a
+-- echo = Get (`Put` echo)
 
 
 instance Functor Teletype where
@@ -66,3 +66,12 @@ getChar = Get End
 
 putChar :: Char -> Teletype ()
 putChar c = Put c (End ())
+
+{-|
+  Echo continuously echoes characters
+-}
+echo :: Teletype a
+echo = do
+  c <- getChar
+  putChar c
+  echo
