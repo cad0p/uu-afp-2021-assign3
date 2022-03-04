@@ -13,7 +13,7 @@ Stability   : experimental
 
 module Assign3.Nested (Square, Cons, Square' (..), Nil, square1, square2, square3) where
 
-type Square      = Square' Nil  -- note that it is eta-reduced
+type Square = Square' Nil  -- note that it is eta-reduced
 data Square' t a
   = Zero (t (t a))
   | Succ (Square' (Cons t) a)
@@ -109,3 +109,29 @@ eqSquare = eqSquare' eqNil
 
 instance Eq a => Eq (Square a) where
   (==) = eqSquare (==)
+
+
+type Mapping f a b = (a -> b) -> f a -> f b
+
+mapNil :: Mapping Nil a b
+mapNil _ Nil = Nil
+
+
+mapCons :: (forall x y . Mapping t x y) -> Mapping (Cons  t) a b
+mapCons mapT mapA (Cons x xs) = Cons (mapA x) (mapT mapA xs)
+
+
+mapSquare' :: (forall x y . Mapping t x y) -> Mapping (Square' t) a b
+mapSquare' mapT mapA (Zero xs) = Zero (mapT (mapT mapA) xs)
+mapSquare' mapT mapA (Succ xs) = Succ (mapSquare' (mapCons mapT) mapA xs)
+
+mapSquare :: Mapping Square a b
+mapSquare = mapSquare' mapNil
+
+instance Functor Square where
+  fmap = mapSquare
+
+
+{-|
+  Here it says that it expects a type synonym to only have 1 argument
+-}
