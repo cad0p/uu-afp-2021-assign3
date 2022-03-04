@@ -1,7 +1,8 @@
 module App.Assign3.Teletype (runTeletype) where
 
-import           Assign3.Teletype (echo)
+-- import           Assign3.Teletype (echo)
 
 runTeletype :: IO ()
 runTeletype = do
-  echo
+  -- echo
+  putStrLn "not yet implemented"
