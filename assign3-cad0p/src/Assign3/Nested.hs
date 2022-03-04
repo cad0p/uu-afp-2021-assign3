@@ -1,6 +1,6 @@
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE TypeOperators     #-}
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-|
 Module      : Assign3.Nested
 Description : Term-level fixpoints
@@ -26,16 +26,17 @@ data Cons t a
   [[1]]
 -}
 square1 :: Square Int
-square1 = Succ (Zero (Cons (1 `Cons` Nil) Nil))
+square1 = Succ (Zero (
+      (1 `Cons` Nil) `Cons` Nil))
 
 {-|
   [[1, 0]
   ,[0, 1]]
 -}
 square2 :: Square Int
-square2 = Succ (Succ (Zero (
-      1 `Cons` (0 `Cons` Nil) `Cons` (
-      0 `Cons` (1 `Cons` Nil) `Cons` Nil))))
+square2 = Succ (Succ (Zero
+      (1 `Cons` (0 `Cons` Nil) `Cons`
+      (0 `Cons` (1 `Cons` Nil) `Cons` Nil))))
 
 {-|
   [[1, 2, 3],
@@ -43,18 +44,30 @@ square2 = Succ (Succ (Zero (
   ,[7, 8, 9]]
 -}
 square3 :: Square Int
-square3 = Succ( Succ (Succ (Zero (
-      1 `Cons` (2 `Cons` ( 3 `Cons` Nil)) `Cons` (
-      4 `Cons` (5 `Cons` ( 6 `Cons` Nil)) `Cons` (
-      7 `Cons` (8 `Cons` ( 9 `Cons` Nil)) `Cons` Nil))))))
+square3 = Succ( Succ (Succ (Zero
+      (1 `Cons` (2 `Cons` ( 3 `Cons` Nil)) `Cons`
+      (4 `Cons` (5 `Cons` ( 6 `Cons` Nil)) `Cons`
+      (7 `Cons` (8 `Cons` ( 9 `Cons` Nil)) `Cons` Nil))))))
 
 
 {-|
   from here: https://joelburget.com/data-newtype-instance-class/
 -}
-class Shape a where
-  fromList2 :: [[b]] ->   a
-  toList2   ::   a   -> [[b]]
+-- class Shape t a where
+--   fromList2 :: [[a]] ->  t a
+--   toList2   ::  t a  -> [[a]]
 
--- instance Shape (Square a) where
---   toList2
+-- instance Shape (Square' t) a where
+--   toList2 (Succ a)       = toList2 a
+--   toList2 (Zero a)       = toList2' a where
+
+--     toList2' :: t (t a) -> [a] -- c: Cons
+--     toList2' c = case c of
+--       c == Cons a b -> a : toList2' b
+--     -- toList2' Nil = []
+
+-- toList2 :: Square' (Cons t) a -> [[a]]
+-- toList2 (Succ a) = toList2 a
+-- toList2 (Zero a) = toList2' a where
+--   toList2' ::(Nil t, Cons t a) => t a -> [a]
+--   toList2' (a `Cons` b) = a : toList2' b
