@@ -82,3 +82,14 @@ echo = do
 instance MonadState Char Teletype where
   get = getChar
   put = putChar
+
+{-
+  From my little understanding, the main difference is that this MonadState is not like a normal state
+  which is characterized by a simple Char, but can be dynamic and this could cause problems when we try
+  to call both get and put at the same time
+
+  On the other hand, it's way more convenient for us to use, as you can see from the very simple implementation.
+-}
+
+
+
