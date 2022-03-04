@@ -83,3 +83,22 @@ eqCons :: (forall b . (b -> b -> Bool) -> (t b -> t b -> Bool))
        -> (a -> a -> Bool)
        -> (Cons t a -> Cons t a -> Bool)
 eqCons eqT eqA (Cons x xs) (Cons y ys) = eqA x y && eqT eqA xs ys
+
+-- The function eqCons does not work because the compiler expects
+-- to be able to work with eqA which is polymorphic
+-- the compiler tries to match eqT type with eqA type, but fails
+-- because the user is free to call this function with two different
+-- types
+
+eqSquare' :: (forall b . (b -> b -> Bool) -> (t b -> t b -> Bool))
+          -> (a -> a -> Bool)
+          -> (Square' t a -> Square' t a -> Bool)
+eqSquare' eqT eqA (Zero xs) (Zero ys) = eqT (eqT eqA) xs ys
+eqSquare' eqT eqA (Succ xs) (Succ ys) = eqSquare' (eqCons eqT) eqA xs ys
+eqSquare' eqT eqA _         _         = False
+
+{-
+  Again, it tries to match together eqT and eqA
+  eqT (eqT eqA) resembles the structure of Zero, and it's recursive
+  so the type changes every time
+-}
