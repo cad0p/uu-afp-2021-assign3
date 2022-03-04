@@ -1,6 +1,6 @@
-{-# LANGUAGE DataKinds    #-}
-{-# LANGUAGE GADTs        #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE DataKinds      #-}
+{-# LANGUAGE GADTs          #-}
+{-# LANGUAGE KindSignatures #-}
 {-|
 Module      : Assign3.Vector
 Description : Term-level fixpoints
@@ -16,6 +16,8 @@ data Nat
   = Zero
   | Succ Nat
 
+{-| 'Vec' is a Vector with a fixed number of elements
+-}
 data Vec a n where
   Nil :: Vec a 'Zero
   Cons :: a -> Vec a n -> Vec a ('Succ n)
@@ -32,19 +34,21 @@ instance Show a => Show (Vec a n) where
     show' (Cons a v)   = show a ++ ", " ++ show' v
 
 
+toList :: Vec a n -> [a]
+toList Nil         = []
+toList (Cons x xs) = x : toList xs
 
-class Vector v where
-  data V v :: * -> Nat -> *
-  toList :: V v a n -> [a]
-  fromList :: [a] -> V v a n
 
-{-| 'Vec' is a 'Vector' with a fixed number of elements
--}
-instance Vector (Vec a n) where
-  data V (Vec a n) a n where
-    VNil :: V (Vec a 'Zero) a 'Zero
-    VCons :: a -> V (Vec a n) a n -> V (Vec a ('Succ n)) a ('Succ n)
-  toList VNil         = []
-  toList (VCons x xs) = x : toList xs
+data VecAnyLen a where
+  VecAnyLen :: Vec a n -> VecAnyLen a
+
+instance Show a => Show (VecAnyLen a) where
+  show (VecAnyLen a) = show a
+
+fromList :: [a] -> VecAnyLen a
+fromList [] = VecAnyLen Nil
+fromList (x:xs) = case fromList xs of
+  VecAnyLen ys -> VecAnyLen (Cons x ys)
+
 
 
