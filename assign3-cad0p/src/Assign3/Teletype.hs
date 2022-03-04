@@ -10,8 +10,8 @@ Stability   : experimental
 module Assign3.Teletype (Teletype (..)) where
 
 import           Control.Monad ((>=>))
-import           Prelude       hiding (getChar, getLine)
-import qualified Prelude       (getChar, getLine)
+import           Prelude       hiding (getChar, getLine, putChar)
+import qualified Prelude       (getChar, getLine, putChar)
 
 data Teletype a
   = End a
@@ -63,3 +63,6 @@ instance Monad Teletype where
 
 getChar :: Teletype Char
 getChar = Get End
+
+putChar :: Char -> Teletype ()
+putChar c = Put c (End ())
