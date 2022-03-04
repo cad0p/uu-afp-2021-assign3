@@ -29,6 +29,7 @@ library:
   - -fwarn-incomplete-uni-patterns
   dependencies:
   - mtl
+  - transformers
 
 executables:
   assign3-cad0p-exe:

@@ -10,10 +10,11 @@ Stability   : experimental
 
 module Assign3.Teletype (Teletype (..), echo, runConsole) where
 
-import           Control.Monad             ((>=>))
-import           Control.Monad.State.Class (MonadState (..))
-import           Prelude                   hiding (getChar, getLine, putChar)
-import qualified Prelude                   (getChar, getLine, putChar)
+import           Control.Monad                ((>=>))
+import           Control.Monad.State.Class    (MonadState (..))
+import           Control.Monad.Trans.RWS.Lazy (RWS)
+import           Prelude                      hiding (getChar, getLine, putChar)
+import qualified Prelude                      (getChar, getLine, putChar)
 
 data Teletype a
   = End a
@@ -100,3 +101,6 @@ runConsole (Get g)    = Prelude.getChar >>= runConsole . g
 runConsole (Put c tt) = do
   Prelude.putChar c
   runConsole tt
+
+
+type TeletypeRW = RWS [Char] () [Char]

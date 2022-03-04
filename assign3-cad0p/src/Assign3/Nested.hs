@@ -76,7 +76,7 @@ square3 = Succ( Succ (Succ (Zero
 
 
 eqNil :: (a -> a -> Bool) -> (Nil a -> Nil a -> Bool)
-eqNil eqA Nil Nil = True
+eqNil _ Nil Nil = True
 
 
 eqCons :: (forall b . (b -> b -> Bool) -> (t b -> t b -> Bool))
@@ -95,7 +95,7 @@ eqSquare' :: (forall b . (b -> b -> Bool) -> (t b -> t b -> Bool))
           -> (Square' t a -> Square' t a -> Bool)
 eqSquare' eqT eqA (Zero xs) (Zero ys) = eqT (eqT eqA) xs ys
 eqSquare' eqT eqA (Succ xs) (Succ ys) = eqSquare' (eqCons eqT) eqA xs ys
-eqSquare' eqT eqA _         _         = False
+eqSquare' _   _   _         _         = False
 
 {-
   Again, it tries to match together eqT and eqA

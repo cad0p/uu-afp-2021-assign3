@@ -35,5 +35,6 @@ huRunConsole = testGroup "runConsole"
   --     "cave"
   -- ) -- does not work because it only gets the last element (in this case "()"), for some reason
   -- don't know how to test echo function
+  -- related: Or we could mock user input and output for testing purposes; How?
   ]
 
