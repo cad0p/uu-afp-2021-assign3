@@ -71,6 +71,8 @@ putChar c = Put c (End ())
 
 {-|
   Echo continuously echoes characters
+
+  try it out with `runConsole echo`
 -}
 echo :: Teletype a
 echo = do
@@ -92,4 +94,9 @@ instance MonadState Char Teletype where
 -}
 
 
-
+runConsole :: Teletype a -> IO a
+runConsole (End a)    = return a
+runConsole (Get g)    = Prelude.getChar >>= runConsole . g
+runConsole (Put c tt) = do
+  Prelude.putChar c
+  runConsole tt
