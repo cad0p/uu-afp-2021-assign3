@@ -1,3 +1,4 @@
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-|
 Module      : Assign3.Teletype
 Description : Teletype IO
@@ -9,9 +10,10 @@ Stability   : experimental
 
 module Assign3.Teletype (Teletype (..), echo) where
 
-import           Control.Monad ((>=>))
-import           Prelude       hiding (getChar, getLine, putChar)
-import qualified Prelude       (getChar, getLine, putChar)
+import           Control.Monad             ((>=>))
+import           Control.Monad.State.Class (MonadState (..))
+import           Prelude                   hiding (getChar, getLine, putChar)
+import qualified Prelude                   (getChar, getLine, putChar)
 
 data Teletype a
   = End a
@@ -75,3 +77,8 @@ echo = do
   c <- getChar
   putChar c
   echo
+
+
+instance MonadState Char Teletype where
+  get = getChar
+  put = putChar
