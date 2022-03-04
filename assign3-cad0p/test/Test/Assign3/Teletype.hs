@@ -3,7 +3,7 @@ module Test.Assign3.Teletype (qcTeletype, huTeletype) where
 import           Test.Tasty
 import           Test.Tasty.HUnit
 
-import           Assign3.Teletype (Teletype (..), echo, runConsole)
+import           Assign3.Teletype (Teletype (..), echo, mockConsole, runConsole)
 
 import           System.IO.Unsafe (unsafePerformIO)
 
@@ -36,5 +36,15 @@ huRunConsole = testGroup "runConsole"
   -- ) -- does not work because it only gets the last element (in this case "()"), for some reason
   -- don't know how to test echo function
   -- related: Or we could mock user input and output for testing purposes; How?
+  ]
+
+huMockConsole :: TestTree
+huMockConsole = testGroup "mockConsole"
+  [ testCase "e" (
+      mockConsole (Put 'e' (End ())) "def"
+    @?=
+      ((), "e")
+  )
+  -- ok, so now I understood how to mock user input, but is this the correct output? I'm not 100% sure
   ]
 

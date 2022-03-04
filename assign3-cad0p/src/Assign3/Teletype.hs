@@ -8,11 +8,12 @@ Maintainer  : p.c.cadoppi@students.uu.nl
 Stability   : experimental
 -}
 
-module Assign3.Teletype (Teletype (..), echo, runConsole) where
+module Assign3.Teletype (Teletype (..), echo, runConsole, mockConsole) where
 
 import           Control.Monad                ((>=>))
 import           Control.Monad.State.Class    (MonadState (..))
 import           Control.Monad.Trans.RWS.Lazy (RWS)
+import qualified Control.Monad.Trans.RWS.Lazy as RWS (ask, modify, runRWS)
 import           Prelude                      hiding (getChar, getLine, putChar)
 import qualified Prelude                      (getChar, getLine, putChar)
 
@@ -104,3 +105,19 @@ runConsole (Put c tt) = do
 
 
 type TeletypeRW = RWS [Char] () [Char]
+
+runRWS :: Teletype a -> TeletypeRW a
+runRWS (End a) = return a
+runRWS (Get g) = do
+  s <- RWS.ask
+  runRWS (g (get s)) where
+    get (x:xs) = x
+    get []     = '\n'
+runRWS (Put c tt) = do
+  RWS.modify (++ [c])
+  runRWS tt
+
+
+mockConsole :: Teletype a -> [Char] -> (a, [Char])
+mockConsole tt s = (a', s') where
+  (a', s', _) = RWS.runRWS (runRWS tt) s ""
