@@ -9,8 +9,9 @@ Stability   : experimental
 
 module Assign3.Teletype (Teletype (..)) where
 
-import           Prelude hiding (getLine)
-import qualified Prelude (getLine)
+import           Control.Monad ((>=>))
+import           Prelude       hiding (getLine)
+import qualified Prelude       (getLine)
 
 data Teletype a
   = End a
@@ -47,3 +48,17 @@ getLine = g "" where
   g s = Get g' where
     g' c  | c == '\n' = End s
           | otherwise = g (s ++ [c])
+
+
+instance Applicative Teletype where
+  pure = End
+  End a <*> tt'    = a <$> tt'
+  Get g <*> tt'    = Get (\c -> g c <*> tt')
+  Put c tt <*> tt' = Put c (tt <*> tt')
+
+instance Monad Teletype where
+  End a >>= f    = f a
+  Get g >>= f    = Get (g >=> f)
+  Put c tt >>= f = Put c (tt >>= f)
+
+
