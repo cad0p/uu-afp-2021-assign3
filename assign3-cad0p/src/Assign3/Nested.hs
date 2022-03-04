@@ -1,5 +1,6 @@
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeOperators     #-}
 {-|
 Module      : Assign3.Nested
 Description : Term-level fixpoints
@@ -20,27 +21,19 @@ data Nil a = Nil
 data Cons t a
   = Cons a (t a)
 
-instance Show a => Show (Nil a) where
-  show a = ""
 
-instance (Show a) => Show (Cons Nil a) where
-  show (Cons a Nil) = show a
+{-|
+  [[1]]
+-}
+square1 :: Square Int
+square1 = Succ (Zero (Cons (1 `Cons` Nil) Nil))
 
-instance (Show a, Show (Square a)) => Show (Cons Square a) where
-  show (Cons a (Zero Nil))                = show a ++ "1\n"
-  show (Cons a (Succ(Zero (Cons b Nil)))) = show a ++ "2\n"
-  show (Cons a (Succ(Succ b)))            = show a ++ "3\n"
-
-
-instance Show a => (Show (Square' (Cons Nil) a)) where
-  show (Zero (Cons x xs))  = show x
-  show (Succ (Zero (Nil))) = ""
-
-
-instance Show a => Show (Square a) where
-  show (Zero Nil) = ""
-  show (Succ a)   = show a ++ "\n"
-
+{-|
+  [[1, 0]
+  ,[0, 1]]
+-}
+-- square2 :: Square Int
+-- square2 = Succ (Succ ())
 
 
 {-|
