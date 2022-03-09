@@ -11,7 +11,7 @@ Maintainer  : p.c.cadoppi@students.uu.nl
 Stability   : experimental
 -}
 
-module Assign3.Nested (Square, Cons, Square' (..), Nil, square1, square2, square3) where
+module Assign3.Nested (Square, Cons (Cons), Square' (..), Nil (Nil), square1, square2, square3, mapSquare', mapNil) where
 
 type Square = Square' Nil  -- note that it is eta-reduced
 data Square' t a

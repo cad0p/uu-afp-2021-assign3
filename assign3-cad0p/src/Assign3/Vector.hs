@@ -29,9 +29,9 @@ instance Eq a => Eq (Vec a n) where
 instance Show a => Show (Vec a n) where
   show v = '[' : show' v ++ "]" where
     show' :: Show a => Vec a n -> String
-    show' Nil          = ""
-    show' (Cons a Nil) = show a
-    show' (Cons a v)   = show a ++ ", " ++ show' v
+    show' Nil           = ""
+    show' (Cons a' Nil) = show a'
+    show' (Cons a' v')  = show a' ++ ", " ++ show' v'
 
 
 toList :: Vec a n -> [a]

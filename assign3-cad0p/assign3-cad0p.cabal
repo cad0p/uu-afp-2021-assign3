@@ -70,3 +70,18 @@ test-suite assign3-cad0p-test
     , tasty
     , tasty-hunit
   default-language: Haskell2010
+
+test-suite assign3-prednaz-test
+  type: exitcode-stdio-1.0
+  main-is: Prednaz.hs
+  other-modules:
+      Paths_assign3_cad0p
+  hs-source-dirs:
+      test/prednaz
+  ghc-options: -Wall -fwarn-incomplete-uni-patterns -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      assign3-cad0p
+    , base >=4.7 && <5
+    , hspec
+    , mtl
+  default-language: Haskell2010

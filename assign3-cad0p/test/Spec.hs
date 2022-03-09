@@ -1,3 +1,4 @@
+
 import           Test.Tasty
 
 import           Test.Assign3.Fix      (huFix, qcFix)
@@ -7,7 +8,8 @@ import           Test.Assign3.Teletype (huTeletype, qcTeletype)
 
 
 main :: IO ()
-main = defaultMain tests
+main = do
+  defaultMain tests
 
 tests       ::  TestTree
 tests       =   testGroup "Tests"       [ properties, unitTests ]

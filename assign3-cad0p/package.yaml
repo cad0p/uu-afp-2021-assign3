@@ -58,3 +58,16 @@ tests:
     - assign3-cad0p
     - tasty
     - tasty-hunit
+  assign3-prednaz-test:
+    main:                Prednaz.hs
+    source-dirs:         test/prednaz
+    ghc-options:
+    - -Wall
+    - -fwarn-incomplete-uni-patterns
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - assign3-cad0p
+    - hspec
+    - mtl
